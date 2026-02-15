@@ -4,7 +4,7 @@ let rawData = [];        // all raw samples for log
 
 // Smoothing and rolling window for mean/median
 let alpha = 0.1;         
-let windowTimeMean = 1;   // 1 second rolling window for stats
+let windowTimeMean = 1;
 let samplingRate = 50;
 let windowSizeMean = Math.ceil(windowTimeMean * samplingRate);
 
@@ -60,7 +60,7 @@ function handleMotion(event) {
     if (rawData.length > windowSizeLog) rawData.shift();
 }
 
-// Update display every second
+if(listening==true){
 setInterval(() => {
     if(data.length === 0) return;
 
@@ -68,19 +68,19 @@ setInterval(() => {
     const mean = data.reduce((sum,v)=>sum+v,0)/data.length;
     const med = median(data);
 
-    document.getElementById('mean').innerText = mean.toFixed(3) + " m/s²";
-    document.getElementById('median').innerText = med.toFixed(3) + " m/s²";
+    document.getElementById('mean').innerText = mean.toFixed(4) + " m/s²";
+    document.getElementById('median').innerText = med.toFixed(4) + " m/s²";
 
-    // update log (last 10s)
     const logContainer = document.getElementById('log');
     logContainer.innerHTML = '';
     rawData.forEach((sample,i) => {
         const mag = Math.sqrt(sample.x**2 + sample.y**2 + sample.z**2);
         const entry = document.createElement('div');
         entry.className = 'log-entry';
-        entry.innerText = `t-${rawData.length-i}s: ${mag.toFixed(3)} m/s²`;
+        entry.innerText = `t-${rawData.length-i}s: ${mag.toFixed(4)} m/s²`;
         logContainer.appendChild(entry);
     });
 
     logContainer.scrollTop = 0;
 }, 1000);
+}
