@@ -60,9 +60,8 @@ function handleMotion(event) {
     if (rawData.length > windowSizeLog) rawData.shift();
 }
 
-if(listening==true){
 setInterval(() => {
-    if(data.length === 0) return;
+    if(data.length === 0 || !listening) return;
 
     // compute stats from rolling window
     const mean = data.reduce((sum,v)=>sum+v,0)/data.length;
@@ -83,4 +82,3 @@ setInterval(() => {
 
     logContainer.scrollTop = 0;
 }, 1000);
-}
