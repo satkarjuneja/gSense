@@ -1,32 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>gSense</title>
-    <style>
-        body{
-            background-color: blueviolet;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gSense</title>
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        /* background: linear-gradient(135deg, #6a0dad, #9b59b6); */
+        background-image: url("bg.jpg");
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        margin: 0;
+        height: 100vh;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .stats-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 15px;
+    }
+
+    .stat-box {
+        flex: 1;
+        margin: 0 10px;
+        text-align: center;
+        background: rgba(0,0,0,0.2);
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .stat-box h2 {
+        font-size: 2rem;
+        margin-bottom: 5px;
+    }
+
+    .log-container {
+        width: 100%;
+        max-width: 600px;
+        height: 250px;
+        overflow-y: auto;
+        background: rgba(0,0,0,0.2);
+        border-radius: 15px;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 1rem;
+    }
+
+    .log-entry {
+        margin-bottom: 5px;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        background: #8e44ad;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #a569bd;
+    }
+
+    @media (max-width: 500px) {
+        .stats-container {
+            flex-direction: column;
         }
-        h1{
-            flex:content;
-            justify-content:center;
-            text-align:center;
-            font-size:50px;
+        .stat-box {
+            margin: 5px 0;
         }
-        h2{
-           flex:content;
-            justify-content:center;
-            text-align:center;
-            font-size:40px; 
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
+
     <h1>gSense Accelerometer</h1>
-    <div>
-        <h2 id="output"></h2>
+
+    <div class="stats-container">
+        <div class="stat-box">
+            <h2 id="mean">--</h2>
+            <p>Mean (last 10s)</p>
+        </div>
+        <div class="stat-box">
+            <h2 id="median">--</h2>
+            <p>Median (last 10s)</p>
+        </div>
     </div>
+
+    <div class="log-container" id="log">
+        <!-- logs will appear here -->
+    </div>
+
+    <button id="startBtn">Start Measurement</button>
+    <button id="stopBtn">Stop Measurement</button>
+
     <script src="accelerometer.js"></script>
 </body>
 </html>
