@@ -82,5 +82,5 @@ setInterval(() => {
         logContainer.appendChild(entry);
     });
 
-    logContainer.scrollTop = logContainer.scrollHeight;
+    logContainer.scrollTop = 0;
 }, 1000);
